@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using UiPath.CodedWorkflows;
 
@@ -16,7 +17,14 @@ namespace HttpClientLogging
             
             Log($"Content Length: {data.Length}");
             
+            try
+            {
             await client.GetAsync(@"https://some-error.com");
+            }
+            catch (Exception ex)
+            {
+                Log("Expected error: " + ex);
+            }
         }
     }
 }
